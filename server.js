@@ -1,13 +1,15 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import ConnectMongo from './Database.js'
-import Users from './model.js'
+import {Users, Tasks} from './model.js'
 
 dotenv.config()
 ConnectMongo()
 
 const app = express()
 app.use(express.json())
+
+//Users Route
 
 app.get('/', async(req, res) => {
     try{
@@ -30,6 +32,28 @@ app.post('/', async(req, res)=> {
         res.send(error)
     }
 })
+
+//Task Routes
+
+app.get('/tasks', async(req, res) => {
+    try {
+        const tasks = await Tasks.find().populate("createdBy", "username email").populate("assignedTo", "username email")
+        res.send(tasks);
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+app.post('/tasks', async (req, res) => {
+    try {
+      const payload = req.body;
+      const newTask = new Tasks(payload);
+      await newTask.save();
+      res.status(201).json({ status: "success", task: newTask });
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is up and running on ${process.env.PORT}`)
