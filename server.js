@@ -1,13 +1,18 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
 import ConnectMongo from './Database.js'
 import {Users, Tasks} from './model.js'
+import authRoutes from './auth.js'
 
 dotenv.config()
 ConnectMongo()
 
 const app = express()
+app.use(cors())
 app.use(express.json())
+
+app.use('/api/auth', authRoutes)
 
 //Users Route
 
