@@ -3,7 +3,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import ConnectMongo from './Database.js'
 import {Users, Tasks} from './model.js'
-import authRoutes from './auth.js'
+import authRoutes from './Routes/auth.js'
+import taskRoutes from './Routes/task.js'
 
 dotenv.config()
 ConnectMongo()
@@ -13,6 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/api/auth', authRoutes)
+app.use('/api/task', taskRoutes)
 
 //Users Route
 
