@@ -9,8 +9,15 @@ router.post('/', async(req, res) => {
 })
 
 router.get('/', async(req, res) => {
-    const task = await Tasks.find();
-    res.json(task);
+    try {
+        const task = await Tasks.find()
+            .populate("createdBy", "username email")
+            .populate("assignedTo", "username email");
+
+        res.json(task);
+    } catch (error) {
+        res.status(500).json({ message: "Failed to fetch tasks", error });
+    }
 })
 
 router.put('/:id', async(req, res) => {
