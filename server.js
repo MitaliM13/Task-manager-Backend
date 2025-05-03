@@ -23,7 +23,7 @@ app.get('/', async(req, res) => {
         const data = await Users.find({});
         res.send(data)
     } catch(err){
-        res.send(err)
+        res.status(500).send(err)
     }
 })
 
@@ -42,25 +42,25 @@ app.post('/', async(req, res)=> {
 
 //Task Routes
 
-app.get('/tasks', async(req, res) => {
-    try {
-        const tasks = await Tasks.find().populate("createdBy", "username email").populate("assignedTo", "username email")
-        res.send(tasks);
-    } catch (error) {
-        res.status(500).send(error)
-    }
-})
+// app.get('/tasks', async(req, res) => {
+//     try {
+//         const tasks = await Tasks.find().populate("createdBy", "username email").populate("assignedTo", "username email")
+//         res.send(tasks);
+//     } catch (error) {
+//         res.status(500).send(error)
+//     }
+// })
 
-app.post('/tasks', async (req, res) => {
-    try {
-      const payload = req.body;
-      const newTask = new Tasks(payload);
-      await newTask.save();
-      res.status(201).json({ status: "success", task: newTask });
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  });
+// app.post('/tasks', async (req, res) => {
+//     try {
+//       const payload = req.body;
+//       const newTask = new Tasks(payload);
+//       await newTask.save();
+//       res.status(201).json({ status: "success", task: newTask });
+//     } catch (error) {
+//       res.status(500).send(error);
+//     }
+//   });
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is up and running on ${process.env.PORT}`)
