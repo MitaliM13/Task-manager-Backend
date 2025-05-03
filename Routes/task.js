@@ -15,10 +15,10 @@ router.get('/', async(req, res) => {
 
 router.put('/:id', async(req, res) => {
     const task = await Tasks.findByIdAndUpdate(req.params.id, req.body, {new: true})
-    json(task)
+    res.json(task)
 })
 
-router.delete(':/id', async(req, res) => {
+router.delete('/:id', async(req, res) => {
     await Tasks.findByIdAndDelete(req.params.id);
     res.send('Task Deleted')
 })

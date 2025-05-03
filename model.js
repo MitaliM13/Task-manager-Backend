@@ -45,7 +45,7 @@ const TaskSchema = new Mongoose.Schema({
     },
     assignedTo: {
         type: Mongoose.Schema.Types.ObjectId,
-        ref: "Users"
+        ref: "Users" 
     },
 }, {timestamps: true})
 

@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/api/auth', authRoutes)
-app.use('/api/task', taskRoutes)
+app.use('/api/tasks', taskRoutes)
 
 //Users Route
 
