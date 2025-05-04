@@ -7,9 +7,10 @@ router.post('/', async (req, res) => {
         console.log("Task body", req.body)
         const task = new Tasks(req.body);
         await task.save();
+        await task.populate('createdBy', 'username email');
         res.status(201).json(task);
     } catch (err) {
-        console.log("Error saving tasks", err)
+        // console.log("Error saving tasks", err)
         res.status(500).json({ error: err.message });
     }
 });
@@ -27,7 +28,8 @@ router.get('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const task = await Tasks.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const task = await Tasks.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        .populate('createdBy', 'username email')
         res.json(task);
     } catch (error) {
         res.status(500).json({ message: "Update failed", error });
