@@ -2,11 +2,19 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import ConnectMongo from './Database.js'
-import {Users, Tasks} from './model.js'
+import {Users} from './model.js'
 import authRoutes from './Routes/auth.js'
 import taskRoutes from './Routes/task.js'
+import userRoutes from './Routes/user.js'
 
 dotenv.config()
+
+if (!process.env.PORT || !process.env.JWT_SECRET || !process.env.MONGO_URI) {
+    console.error("Missing required environment variables");
+    process.exit(1);
+}
+
+
 ConnectMongo()
 
 const app = express()
@@ -15,30 +23,35 @@ app.use(express.json())
 
 app.use('/api/auth', authRoutes)
 app.use('/api/tasks', taskRoutes)
+app.use('/api/users', userRoutes)
+
+app.get('/', (req,res) => {
+    res.send("API is running")
+})
 
 //Users Route
 
-app.get('/', async(req, res) => {
-    try{
-        const data = await Users.find({});
-        res.send(data)
-    } catch(err){
-        res.status(500).send(err)
-    }
-})
+// app.get('/', async(req, res) => {
+//     try{
+//         const data = await Users.find({});
+//         res.send(data)
+//     } catch(err){
+//         res.status(500).send(err)
+//     }
+// })
 
-app.post('/', async(req, res)=> {
-    try {
-        const payload =  req.body;
+// app.post('/', async(req, res)=> {
+//     try {
+//         const payload =  req.body;
 
-        const User = new Users(payload)
-        await User.save()
+//         const User = new Users(payload)
+//         await User.save()
 
-        res.status(200).json({status: "success"})
-    } catch (error) {
-        res.send(error)
-    }
-})
+//         res.status(200).json({status: "success"})
+//     } catch (error) {
+//         res.send(error)
+//     }
+// })
 
 //Task Routes
 
