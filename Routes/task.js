@@ -3,9 +3,13 @@ import { Tasks } from '../model.js'
 const router = express.Router()
 
 router.post('/', async(req, res) => {
-    const task = new Tasks(req.body);
-    await task.save();
-    res.status(201).json(task);
+    try {
+        const task = new Tasks(req.body);
+        await task.save();
+        res.status(201).json(task);
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
 })
 
 router.get('/', async(req, res) => {
