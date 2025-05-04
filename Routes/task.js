@@ -4,10 +4,12 @@ const router = express.Router()
 
 router.post('/', async (req, res) => {
     try {
+        console.log("Task body", req.body)
         const task = new Tasks(req.body);
         await task.save();
         res.status(201).json(task);
     } catch (err) {
+        console.log("Error saving tasks", err)
         res.status(500).json({ error: err.message });
     }
 });

@@ -42,7 +42,7 @@ const TaskSchema = new Mongoose.Schema({
     createdBy: {
         type: Mongoose.Schema.Types.ObjectId,
         ref: "Users",
-        required: true,
+        required: false,
     },
     assignedTo: {
         type: Mongoose.Schema.Types.ObjectId,
