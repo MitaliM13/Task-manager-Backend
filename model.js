@@ -19,6 +19,10 @@ const UserSchema = new Mongoose.Schema({
     tasksCreated: {
         type: [],
         default: []
+    },
+    taskAssigned: {
+        type: [],
+        default: []
     }
 })
 
