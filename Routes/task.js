@@ -4,10 +4,11 @@ const router = express.Router()
 
 router.post('/', async (req, res) => {
     try {
-        console.log("Task body", req.body)
+        // console.log("Task body", req.body)
         const task = new Tasks(req.body);
         await task.save();
         await task.populate('createdBy', 'username email');
+        console.log("Saved Task with populated createdBy:", task);
         res.status(201).json(task);
     } catch (err) {
         // console.log("Error saving tasks", err)
