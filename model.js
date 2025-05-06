@@ -16,14 +16,16 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
-    tasksCreated: {
-        type: [],
-        default: []
-    },
-    taskAssigned: {
-        type: [],
-        default: []
-    }
+    tasksCreated: [{
+        type: Mongoose.Schema.Types.ObjectId,
+        // type: [],
+        ref: 'Tasks'
+      }],
+      taskAssigned: [{
+        type: Mongoose.Schema.Types.ObjectId,
+        // type: [],
+        ref: 'Tasks'
+      }]
 })
 
 //Task Schema
@@ -48,20 +50,15 @@ const TaskSchema = new Mongoose.Schema({
         default: "Pending",
     },
     createdBy: {
-        // type: Mongoose.Schema.Types.ObjectId,
-        // ref: "User",
-        // required: false,
-        type: String,
-        required: false,
-        default: ""
-    },
-    assignedTo: {
-        // type: Mongoose.Schema.Types.ObjectId,
-        // ref: "User" 
-        type: String,
-        required: false,
-        default: ""
-    },
+        type: Mongoose.Schema.Types.ObjectId,
+        // type: [],
+        ref: 'User'
+      },
+      assignedTo: {
+        type: Mongoose.Schema.Types.ObjectId,
+        // type: [],
+        ref: 'User'
+      }
 }, {timestamps: true})
 
 const Users = Mongoose.model("User", UserSchema)
