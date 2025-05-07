@@ -1,47 +1,51 @@
 # 🛠️ Task Manager App — Backend (Node.js + Express)
 
-This is the backend for the **Task Manager App**, built with **Node.js**, **Express**, and **MongoDB**. It provides APIs for managing users, authentication, and tasks.
+This is the backend for the **Task Manager App**, built with **Node.js**, **Express**, and **MongoDB**. It provides APIs for user authentication, task creation and management, and user-task tracking.
+
+## 🌐 Live Frontend
+
+🔗 [Task Manager App – Live Demo](https://task-manager-frontend-two-mauve.vercel.app)
 
 ## ✨ Features
 
 - 🔐 JWT-based authentication
-- 🔒 Password hashing with bcrypt
+- 🔒 Secure password hashing using bcrypt
 - 👤 User registration and login
-- 📋 Create, assign, update, delete tasks
-- 📁 User-task relationship tracking (created/assigned)
-- 🔎 Filtering and searching tasks
+- 📋 Task creation, assignment, editing, and deletion
+- 🔗 User-task relationship tracking (created vs assigned)
+- 🔎 Advanced task filtering and search support
 
 ## 🧰 Tech Stack
 
 - **Node.js**
 - **Express.js**
-- **MongoDB + Mongoose**
-- **JWT** – authentication
-- **bcrypt** – password hashing
-- **dotenv** – environment config
-- **cors** – Cross-Origin Resource Sharing
+- **MongoDB** + **Mongoose**
+- **JWT** – secure token authentication
+- **bcryptjs** – password encryption
+- **dotenv** – environment variable management
+- **cors** – enable CORS for frontend integration
+
+---
 
 ## 🧠 Project Thinking & Development Process
 
-### Backend (Node.js + Express + MongoDB)
+### 🧩 Schema Design
 
-**Schema Design**
+- Defined `User` and `Task` schemas using Mongoose with essential fields like `title`, `status`, `priority`, `dueDate`, and `assignedTo`.
+- Designed for scalability and clear user-task relationships.
 
-- Started with defining MongoDB schemas for `User` and `Task`.
-- Ensured scalability and covered essential fields such as priority, status, due date, and assigned user.
+### ⚙️ API Development
 
-**API Development**
+- Established a MongoDB connection using Mongoose.
+- Created authentication routes (`/register`, `/login`) with secure JWT handling.
+- Implemented task management routes for full CRUD operations.
+- Added search and filter routes to support queries by title, status, priority, and due date.
+- Handled errors using middleware and ensured seamless communication with the frontend using CORS.
 
-- Connected backend to MongoDB using Mongoose.
-- Implemented authentication routes (`/register`, `/login`) using JWT for secure sessions.
-- Developed CRUD routes for tasks: create, read, update, and delete.
-- Added routes for search and filter functionality based on title, status, priority, and due date.
-- Ensured CORS compatibility with the frontend.
+### 🚀 Deployment
 
-**Deployment**
-
-- Hosted the backend on **Render**.
-- Used environment variables (`JWT_SECRET`, `MONGO_URI`, `FRONTEND_URL`) stored securely in Render's dashboard.
+- Deployed on **Render**.
+- Secured credentials like `JWT_SECRET`, `MONGO_URI`, and `FRONTEND_URL` via Render's environment settings.
 
 ---
 
